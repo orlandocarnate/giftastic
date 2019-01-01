@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 
     function giftastic(value) {
+        $("#gifs").empty();
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + value + "&api_key=" + apikey;
         $.ajax({
         url: queryURL,
@@ -12,15 +13,19 @@ $(document).ready(function() {
         }).then(function(response) {
         console.log(response);
         // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
-        for (i=0; i < response.data.length; i++) {
-            $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
+        // for (i=0; i < response.data.length; i++) {
+        for (i=0; i < 10; i++) {
+            $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
         }
         });
     }
 
     $("button").click(function() {
         var value = $("#getimage").val();
-        giftastic(value);
+        if (value !== '') {
+            giftastic(value);
+        }
+
     })
 
 })
