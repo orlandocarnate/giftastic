@@ -11,13 +11,13 @@ $(document).ready(function() {
         "cheesecake",
         "ice cream",
         "gelato",
-        "halo halo",
+        "tres leches",
         "mochi",
         "fritter",
         "pastry"
 
     ];
-
+    var $gifID = $("#gifs");
 
     // var rating = ['PG', 'G'];
 
@@ -48,15 +48,14 @@ $(document).ready(function() {
 
     // card generator
     function cardGenerator(arg){
-        var $gifID = $("#gifs");
-
+        var newCard = arg;
         // generate 10 cards using for loop
         for (i=0; i < 10; i++) {
             var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
             // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
-            var $cardHeader = $("<div/>", {"class": "card-header", text: arg.data[i].rating.toUpperCase()}); // gif rating
-            var $cardStill = $("<img/>", {"class": "card-img-top", "src": arg.data[i].images.fixed_width_still.url}); // still image from URL
-            var gifAnim = arg.data[i].images.fixed_width.url; // store GIF URL
+            var $cardHeader = $("<div/>", {"class": "card-header", text: newCard.data[i].rating.toUpperCase()}); // gif rating
+            var $cardStill = $("<img/>", {"class": "card-img-top", "src": newCard.data[i].images.fixed_width_still.url}); // still image from URL
+            var gifAnim = newCard.data[i].images.fixed_width.url; // store GIF URL
             console.log("gifAnim url: ", gifAnim);
             // var $cardTitle = $("<div/>", {"class": "card-title text-center " + cardID, text: value.name});
             // var $cardText = $("<div/>", {"class": "card-text text-center " + cardID, text: value.health});
@@ -76,22 +75,24 @@ $(document).ready(function() {
     // API method
     function giftastic(value) {
         // $("#gifs").empty();
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + value + "&api_key=" + apikey;
+        var imgQuery = value;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery + "&api_key=" + apikey;
         $.ajax({
         url: queryURL,
         method: "GET"
         }).then(function(response) {
-            console.log("response: ",response);
+            var imgResponse = response;
+            console.log(imgQuery,imgResponse);
             // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
             // for (i=0; i < response.data.length; i++) {
             // for (i=0; i < 10; i++) {
             //     $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
             // }
-            cardGenerator(response);
+            cardGenerator(imgResponse);
         });
     };
 
-    $("button").click(function() {
+    $("#submit").click(function() {
         var value = $("#getimage").val();
         if (value !== '') {
             giftastic(value);
@@ -103,14 +104,14 @@ $(document).ready(function() {
         imgValue = $(this).val();
         giftastic(imgValue);
         $("#getimage").val(imgValue);
-        alert(imgValue);
+        console.log(imgValue);
         
     });
 
     // click event for generated element
     $(document).on("click", ".card", function() {
         // cardValue = $(this).val(); 
-        alert("Image Clicked");
+        console.log("Image Clicked");
     });
 
 
