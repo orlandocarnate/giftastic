@@ -11,9 +11,17 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
 * The user can add their own topic to display 10 gifs after they click the submit button. The value is also added to the `topics` array and added as a new button.
 
 
-## Personal Notes
+## Programming Notes
 * Always add `$(document).ready(function() {})` to a jQuery script
 * Add validation, such as if there is no string in the input don't do anything.
+* Any element generated after the listening event is created must have a differmt kind of event listener
+```
+    // click event for generated element
+    $(document).on("click", ".card", function() {
+        alert("Image Clicked");
+    });
+```
+
 
 ## Reference Links
 * Background patters from [Subtle Patterns](https://subtlepatterns.com/)

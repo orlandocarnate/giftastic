@@ -52,7 +52,7 @@ $(document).ready(function() {
 
         // generate 10 cards using for loop
         for (i=0; i < 10; i++) {
-            var $card = $("<div/>", {"class":"card m-1 p-0", "style": "width: 240px;"}) // card class
+            var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
             // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
             var $cardHeader = $("<div/>", {"class": "card-header", text: arg.data[i].rating.toUpperCase()}); // gif rating
             var $cardStill = $("<img/>", {"class": "card-img-top", "src": arg.data[i].images.fixed_width_still.url}); // still image from URL
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
     // API method
     function giftastic(value) {
-        $("#gifs").empty();
+        // $("#gifs").empty();
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + value + "&api_key=" + apikey;
         $.ajax({
         url: queryURL,
@@ -102,6 +102,15 @@ $(document).ready(function() {
     $(".btn").click(function() {
         imgValue = $(this).val();
         giftastic(imgValue);
+        $("#getimage").val(imgValue);
+        alert(imgValue);
+        
+    });
+
+    // click event for generated element
+    $(document).on("click", ".card", function() {
+        // cardValue = $(this).val(); 
+        alert("Image Clicked");
     });
 
 
