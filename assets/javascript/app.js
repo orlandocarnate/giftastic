@@ -27,32 +27,31 @@ $(document).ready(function() {
 
     // button generator
     function buttonGenerator(val) {
-        var $gifButtons = $("#gifbuttons");
+        var $gifButtons = $("#gifbuttons"); // #gifbuttons element
 
-        var $gifButton = $("<button/>", {"class": 'btn-info'});
-    
-        // add value to button
-        $gifButton.attr("value", val);
+        var $gifButton = $("<button/>", {"class": 'btn btn-info'}); // create bootstrap button
 
-        // attach button to #gifButtons div
-        $gifButtons.append($gifButton);
+        $gifButton.attr("value", val); // add value to button
+
+        $gifButtons.append($gifButton); // attach button to #gifButtons div
     };
 
+    // call button generator 
+    topics.forEach(buttonGenerator());
 
-    function cardGenerator(){
-        $("#chooseChar").append(charCard.append(cardBody.append(cardImg, cardTitle, cardText)));
-
-        // card generator
-        var gifCard = $("<div/>", {"class": "card p-2", "id": cardID, "style": "width:150px;", "name": value.name,
-        "healthpoints": value.health, "attackpower": value.attack, "counterattackpower": value.counter, 
-        "sigSpell": value.signatureSpell});
+    // card generator
+    function cardGenerator(arg){
+        var $gifID = $("#gifs");
+        var $card = $("<div/>", {"class":"card", "id": arg.index}) // card class
+        var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
+        var $cardHeader = $("<div/>", {"class": "card-header", text: arg.rating}); // gif rating
+        var $cardStill = $("<img/>", {"class": "card-img-top", "src": arg.still}); // still image from URL
+        var gifAnim = arg.url; // store GIF URL
+        // var $cardTitle = $("<div/>", {"class": "card-title text-center " + cardID, text: value.name});
+        // var $cardText = $("<div/>", {"class": "card-text text-center " + cardID, text: value.health});
     
-        var cardBody = $("<div/>", {"class": 'card-body'});
-        var cardImg = $("<img/>", {"class": "card-img-top", "src": "assets/images/" + value.image});
-        var cardTitle = $("<div/>", {"class": "card-title text-center " + cardID, text: value.name});
-        var cardText = $("<div/>", {"class": "card-text text-center " + cardID, text: value.health});
-    
-       $("#chooseChar").append(charCard.append(cardBody.append(cardImg, cardTitle, cardText)));
+        // append jquery elements to #gifs div element
+       $gifID.append($card.append($cardBody.append($cardHeader, $cardStill)));
     }
 
 
