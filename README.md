@@ -14,3 +14,6 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
 ## Personal Notes
 * Always add `$(document).ready(function() {})` to a jQuery script
 * Add validation, such as if there is no string in the input don't do anything.
+
+## Reference Links
+* Background patters from [Subtle Patterns](https://subtlepatterns.com/)
