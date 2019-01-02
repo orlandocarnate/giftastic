@@ -28,16 +28,23 @@ $(document).ready(function() {
     // button generator
     function buttonGenerator(val) {
         var $gifButtons = $("#gifbuttons"); // #gifbuttons element
+        $gifButtons.empty();
+        // loop through topics array
+        for (var i=0; i<val.length; i++) {
 
-        var $gifButton = $("<button/>", {"class": 'btn btn-info'}); // create bootstrap button
 
-        $gifButton.attr("value", val); // add value to button
+            var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', text: val[i]}); // create bootstrap button
+    
+            $gifButton.attr("value", val[i]); // add value to button
+    
+            $gifButtons.append($gifButton); // attach button to #gifButtons div
+        }
 
-        $gifButtons.append($gifButton); // attach button to #gifButtons div
+
     };
 
     // call button generator 
-    topics.forEach(buttonGenerator());
+    buttonGenerator(topics);
 
     // card generator
     function cardGenerator(arg){
@@ -52,8 +59,12 @@ $(document).ready(function() {
     
         // append jquery elements to #gifs div element
        $gifID.append($card.append($cardBody.append($cardHeader, $cardStill)));
-    }
+    };
 
+    // toggle image and GIF method
+    function toggleImg() {
+        // toggles self or this element between still and GIF animation
+    };
 
     // API method
     function giftastic(value) {
@@ -70,7 +81,7 @@ $(document).ready(function() {
             $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
         }
         });
-    }
+    };
 
     $("button").click(function() {
         var value = $("#getimage").val();
@@ -78,6 +89,13 @@ $(document).ready(function() {
             giftastic(value);
         }
 
-    })
+    });
 
-})
+    $(".btn").click(function() {
+        imgValue = $(this).val();
+        giftastic(imgValue);
+    });
+
+
+//------ end ------
+});
