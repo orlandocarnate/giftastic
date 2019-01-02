@@ -5,3 +5,9 @@ body {
 .container {
     background-color: #fff;
 }
+
+.card-img-top {
+    width: 200px;
+    height: 160px;
+    object-fit: cover;
+}

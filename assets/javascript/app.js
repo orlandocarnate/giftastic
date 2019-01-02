@@ -49,16 +49,23 @@ $(document).ready(function() {
     // card generator
     function cardGenerator(arg){
         var $gifID = $("#gifs");
-        var $card = $("<div/>", {"class":"card", "id": arg.index}) // card class
-        var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
-        var $cardHeader = $("<div/>", {"class": "card-header", text: arg.rating}); // gif rating
-        var $cardStill = $("<img/>", {"class": "card-img-top", "src": arg.still}); // still image from URL
-        var gifAnim = arg.url; // store GIF URL
-        // var $cardTitle = $("<div/>", {"class": "card-title text-center " + cardID, text: value.name});
-        // var $cardText = $("<div/>", {"class": "card-text text-center " + cardID, text: value.health});
-    
-        // append jquery elements to #gifs div element
-       $gifID.append($card.append($cardBody.append($cardHeader, $cardStill)));
+
+        // generate 10 cards using for loop
+        for (i=0; i < 10; i++) {
+            var $card = $("<div/>", {"class":"card m-1 p-0", "style": "width: 240px;"}) // card class
+            // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
+            var $cardHeader = $("<div/>", {"class": "card-header", text: arg.data[i].rating.toUpperCase()}); // gif rating
+            var $cardStill = $("<img/>", {"class": "card-img-top", "src": arg.data[i].images.fixed_width_still.url}); // still image from URL
+            var gifAnim = arg.data[i].images.fixed_width.url; // store GIF URL
+            console.log("gifAnim url: ", gifAnim);
+            // var $cardTitle = $("<div/>", {"class": "card-title text-center " + cardID, text: value.name});
+            // var $cardText = $("<div/>", {"class": "card-text text-center " + cardID, text: value.health});
+        
+            // append jquery elements to #gifs div element
+           $gifID.append($card.append($cardHeader, $cardStill));
+        }
+
+
     };
 
     // toggle image and GIF method
@@ -74,12 +81,13 @@ $(document).ready(function() {
         url: queryURL,
         method: "GET"
         }).then(function(response) {
-        console.log(response);
-        // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
-        // for (i=0; i < response.data.length; i++) {
-        for (i=0; i < 10; i++) {
-            $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
-        }
+            console.log("response: ",response);
+            // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
+            // for (i=0; i < response.data.length; i++) {
+            // for (i=0; i < 10; i++) {
+            //     $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
+            // }
+            cardGenerator(response);
         });
     };
 
