@@ -10,6 +10,12 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
 * A text box on the side of the page is filled with the topic when a button is clicked.
 * The user can add their own topic to display 10 gifs after they click the submit button. The value is also added to the `topics` array and added as a new button.
 
+## Bonus Goals
+* Allow users to request an addition 10 gifs to be added to the page.
+    * I added an `imgOffset` attribute to each topic button.
+    * When the topic button is pressed the `imgOffset` value is passed to the API function and added to the `"&offset=" + offset"` string.
+    * Finally the `imgOffset` attribute is increased by 10.
+
 
 ## Programming Notes
 * Always add `$(document).ready(function() {})` to a jQuery script

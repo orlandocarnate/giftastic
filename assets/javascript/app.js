@@ -1,45 +1,25 @@
 $(document).ready(function() {
     var topics = [
-        "Star Wars",
-        "Blade Runner",
-        "Tron",
-        "Tron Legacy",
-        "Interstellar",
-        "The Last Starfighter",
-        "Buck Rogers",
-        "Star Trek",
-        "Battlestar Galactica",
-        "Firefly",
-        "Cowboy Bebop",
-        "Doctor Who"
+        "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
+        "The Last Starfighter", "Buck Rogers", "Star Trek", "Battlestar Galactica",
+        "Firefly", "Cowboy Bebop", "Doctor Who"
     ];
     var $gifID = $("#gifs");
 
     var $gifButtons = $("#gifbuttons"); // #gifbuttons element
     $gifButtons.empty();
-
     var rating = 'pg'; // this rating plus anything below it.
-
     var searchLimit = 10; // limit searches to 10
 
     // Example queryURL for Giphy API
     var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv';
-    // var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
 
     // button generator
     function buttonGenerator(val) {
-        // loop through topics array
-        // for (var i=0; i<val.length; i++) {
-
-
-            var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', text: val}); // create bootstrap button
-    
-            $gifButton.attr("value", val); // add value to button
-    
-            $gifButtons.append($gifButton); // attach button to #gifButtons div
-        // }
-
-
+        // create bootstrap button
+        var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', "imgOffset": 0, "text": val}); 
+        $gifButton.attr("value", val); // add value to button
+        $gifButtons.append($gifButton); // attach button to #gifButtons div
     };
 
     // call button generator 
@@ -73,19 +53,16 @@ $(document).ready(function() {
         }
     };
 
-    // toggle image and GIF method
-    // function toggleImg() {
-    //     // toggles self or this element between still and GIF animation
-    // };
-
     // API method
-    function giftastic(value) {
+    function giftastic(value, offset) {
         // $("#gifs").empty();
         var imgQuery = value;
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
                                                     + "&api_key=" + apikey 
                                                     + "&rating=" + rating 
-                                                    + "&limit=" + searchLimit;
+                                                    + "&limit=" + searchLimit
+                                                    + "&offset=" + offset;
+        alert(queryURL);
         $.ajax({
         url: queryURL,
         method: "GET"
@@ -110,19 +87,21 @@ $(document).ready(function() {
             $("#getimage").val('');
             topics.forEach(function (item) {
                 buttonGenerator(item);
-    });
-            
+            });
         }
-
     });
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn", function() {
         imgValue = $(this).val();
-        giftastic(imgValue);
-        // $("#getimage").val(imgValue);
+        imgOffset = $(this).attr("imgOffset");
+        giftastic(imgValue, imgOffset);
+
+        // increase offset value by 10
+        imgOffset = parseInt(imgOffset) + 10;
+        alert(imgOffset);
+        $(this).attr("imgOffset", imgOffset);
         console.log(imgValue);
-        
     });
 
     // click event for generated element
@@ -131,7 +110,6 @@ $(document).ready(function() {
         $(this).children(".gif").toggle(); 
         console.log("Image Clicked");
     });
-
 
 //------ end ------
 });
