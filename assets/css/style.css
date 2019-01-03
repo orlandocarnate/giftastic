@@ -5,9 +5,17 @@ body {
 .container {
     background-color: #fff;
 }
-
+.card {
+    width: 200px;
+}
 .card-img-top {
     width: 180px;
     height: 140px;
     object-fit: cover;
+}
+.card-title {
+    word-wrap: break-word;
+}
+.card-subtitle {
+    word-wrap: break-word;
 }

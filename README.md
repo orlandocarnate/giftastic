@@ -21,6 +21,13 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
         alert("Image Clicked");
     });
 ```
+* You can add a rating and limit to the GIPHY API cURL (Client URL) line
+```       
+ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
+                + "&api_key=" + apikey 
+                + "&rating=" + rating 
+                + "&limit=" + searchLimit;
+```
 
 
 ## Reference Links
