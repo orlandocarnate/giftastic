@@ -6,7 +6,6 @@ $(document).ready(function() {
         "Tron Legacy",
         "Interstellar",
         "The Last Starfighter",
-        "Android",
         "Buck Rogers",
         "Star Trek",
         "Battlestar Galactica",
