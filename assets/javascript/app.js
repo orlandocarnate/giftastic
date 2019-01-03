@@ -14,69 +14,73 @@ $(document).ready(function() {
     // Example queryURL for Giphy API
     var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv';
 
-    // button generator
-    function buttonGenerator(val) {
-        // create bootstrap button
-        var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', "imgOffset": 0, "text": val}); 
-        $gifButton.attr("value", val); // add value to button
-        $gifButtons.append($gifButton); // attach button to #gifButtons div
-    };
+    var giftastic = {
+        // API method
+        giphy: function (value, offset) {
+            // $("#gifs").empty();
+            var imgQuery = value;
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
+                                                        + "&api_key=" + apikey 
+                                                        + "&rating=" + rating 
+                                                        + "&limit=" + searchLimit
+                                                        + "&offset=" + offset;
+            console.log(queryURL);
+            $.ajax({
+            url: queryURL,
+            method: "GET"
+            }).then(function(response) {
+                var imgResponse = response;
+                console.log(imgQuery,imgResponse);
+                // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
+                // for (i=0; i < response.data.length; i++) {
+                // for (i=0; i < 10; i++) {
+                //     $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
+                // }
+                giftastic.cardGenerator(imgResponse);
+            });
+        },
+
+        // button generator
+        buttonGenerator: function (val) {
+            // create bootstrap button
+            var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', "imgOffset": 0, "text": val}); 
+            $gifButton.attr("value", val); // add value to button
+            $gifButtons.append($gifButton); // attach button to #gifButtons div
+        },
+
+        // card generator
+        cardGenerator: function (arg){
+            var newCard = arg;
+            // generate 10 cards using for loop
+            for (var i = 0; i < 10; i++) {
+                var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
+                // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
+
+                // avoid blank titles
+                var cardTitle;
+                if (newCard.data[i].title === "") {
+                    cardTitle = "No Title";
+                } else {
+                    cardTitle = newCard.data[i].title;
+                }
+                var $cardTitle = $("<p/>", {"class": "card-title", "text": cardTitle}); // gif rating
+                var $cardSubtitle = $("<p/>", {"class": "card-subtitle", "text": newCard.data[i].rating.toUpperCase()}); // gif rating
+                var $cardStill = $("<img/>", {"class": "card-img-top still", "src": newCard.data[i].images.fixed_width_still.url}); // still image from URL
+                var $cardGIF = $("<img/>", {"class": "card-img-top gif", "src": newCard.data[i].images.fixed_width.url}); // gif image that is hidden by default
+            
+                // append jquery elements to #gifs div element
+                $gifID.append($card.append($cardStill, $cardGIF.hide(), $cardTitle, $cardSubtitle));
+            }
+        },
+
+
+    }
 
     // call button generator 
     topics.forEach(function (item) {
         console.log(item);
-        buttonGenerator(item);
+        giftastic.buttonGenerator(item);
     });
-
-    // card generator
-    function cardGenerator(arg){
-        var newCard = arg;
-        // generate 10 cards using for loop
-        for (var i = 0; i < 10; i++) {
-            var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
-            // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
-
-            // avoid blank titles
-            var cardTitle;
-            if (newCard.data[i].title === "") {
-                cardTitle = "No Title";
-            } else {
-                cardTitle = newCard.data[i].title;
-            }
-            var $cardTitle = $("<p/>", {"class": "card-title", "text": cardTitle}); // gif rating
-            var $cardSubtitle = $("<p/>", {"class": "card-subtitle", "text": newCard.data[i].rating.toUpperCase()}); // gif rating
-            var $cardStill = $("<img/>", {"class": "card-img-top still", "src": newCard.data[i].images.fixed_width_still.url}); // still image from URL
-            var $cardGIF = $("<img/>", {"class": "card-img-top gif", "src": newCard.data[i].images.fixed_width.url}); // gif image that is hidden by default
-        
-            // append jquery elements to #gifs div element
-            $gifID.append($card.append($cardStill, $cardGIF.hide(), $cardTitle, $cardSubtitle));
-        }
-    };
-
-    // API method
-    function giftastic(value, offset) {
-        // $("#gifs").empty();
-        var imgQuery = value;
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
-                                                    + "&api_key=" + apikey 
-                                                    + "&rating=" + rating 
-                                                    + "&limit=" + searchLimit
-                                                    + "&offset=" + offset;
-        alert(queryURL);
-        $.ajax({
-        url: queryURL,
-        method: "GET"
-        }).then(function(response) {
-            var imgResponse = response;
-            console.log(imgQuery,imgResponse);
-            // $("body").append($("<img/>", {"src": response.data[i].images.downsized.url}));
-            // for (i=0; i < response.data.length; i++) {
-            // for (i=0; i < 10; i++) {
-            //     $("#gifs").append($("<img/>", {"src": response.data[i].images.preview_gif.url}));
-            // }
-            cardGenerator(imgResponse);
-        });
-    };
 
     $("#submit").click(function() {
         var value = $("#getimage").val();
@@ -86,20 +90,21 @@ $(document).ready(function() {
             // clear and rerender buttons
             $("#getimage").val('');
             topics.forEach(function (item) {
-                buttonGenerator(item);
+                giftastic.buttonGenerator(item);
             });
         }
     });
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn", function() {
+        // send two values to giftastic object
         imgValue = $(this).val();
         imgOffset = $(this).attr("imgOffset");
-        giftastic(imgValue, imgOffset);
+        giftastic.giphy(imgValue, imgOffset);
 
-        // increase offset value by 10
+        // increase button's offset value by 10
         imgOffset = parseInt(imgOffset) + 10;
-        alert(imgOffset);
+        console.log("button offset:",imgOffset);
         $(this).attr("imgOffset", imgOffset);
         console.log(imgValue);
     });
