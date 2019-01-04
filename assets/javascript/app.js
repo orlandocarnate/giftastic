@@ -7,7 +7,6 @@ $(document).ready(function() {
     var $gifID = $("#gifs");
 
     var $gifButtons = $("#gifbuttons"); // #gifbuttons element
-    $gifButtons.empty();
     var rating = 'pg'; // this rating plus anything below it.
     var searchLimit = 10; // limit searches to 10
 
@@ -43,7 +42,13 @@ $(document).ready(function() {
         // button generator
         buttonGenerator: function (val) {
             // create bootstrap button
-            var $gifButton = $("<button/>", {"class": 'btn btn-info mx-1 my-1', "imgOffset": 0, "text": val}); 
+            var $gifButton = $("<button/>", 
+                {
+                    "class": 'btn btn-info mx-1 my-1', 
+                    "data-imgoffset": 0, 
+                    "data-active": "false",
+                    "text": val
+                }); 
             $gifButton.attr("value", val); // add value to button
             $gifButtons.append($gifButton); // attach button to #gifButtons div
         },
@@ -53,12 +58,10 @@ $(document).ready(function() {
             var newCard = arg;
             // generate 10 cards using for loop
             for (var i = 0; i < 10; i++) {
-                var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
                 // var $cardBody = $("<div/>", {"class": 'card-body'}); // card body
-
-                // avoid blank titles
+                var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
                 var cardTitle;
-                if (newCard.data[i].title === "") {
+                if (newCard.data[i].title === "") {     // fill blank titles
                     cardTitle = "No Title";
                 } else {
                     cardTitle = newCard.data[i].title;
@@ -72,8 +75,6 @@ $(document).ready(function() {
                 $gifID.append($card.append($cardStill, $cardGIF.hide(), $cardTitle, $cardSubtitle));
             }
         },
-
-
     }
 
     // call button generator 
@@ -97,15 +98,21 @@ $(document).ready(function() {
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn", function() {
+        // if current topic is not clicked, clear #gifs div
+        if ($(this).attr("data-active") === "false") {
+            $("#gifs").empty();
+            $("#gifbuttons").children(".btn").attr("data-active", "false");
+            $(this).attr("data-active", "true");
+        };
         // send two values to giftastic object
         imgValue = $(this).val();
-        imgOffset = $(this).attr("imgOffset");
+        imgOffset = $(this).attr("data-imgoffset");
         giftastic.giphy(imgValue, imgOffset);
 
         // increase button's offset value by 10
         imgOffset = parseInt(imgOffset) + 10;
         console.log("button offset:",imgOffset);
-        $(this).attr("imgOffset", imgOffset);
+        $(this).attr("data-imgoffset", imgOffset);
         console.log(imgValue);
     });
 
