@@ -15,6 +15,7 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
     * I added an `imgOffset` attribute to each topic button.
     * When the topic button is pressed the `imgOffset` value is passed to the API function and added to the `"&offset=" + offset"` string.
     * Finally the `imgOffset` attribute is increased by 10.
+* For the second API I will use the **[Wikipedia MediaWiki API Main Page](https://www.mediawiki.org/wiki/API:Main_page)**
 
 
 ## Programming Notes
@@ -27,14 +28,20 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
         alert("Image Clicked");
     });
 ```
-* You can add a rating and limit to the GIPHY API cURL (Client URL) line
+
+* You can add a **rating, limit, and offset** to the GIPHY API cURL (Client URL) line
 ```       
- var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
-                + "&api_key=" + apikey 
-                + "&rating=" + rating 
-                + "&limit=" + searchLimit;
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
+                                                        + "&api_key=" + apikey 
+                                                        + "&rating=" + rating 
+                                                        + "&limit=" + searchLimit
+                                                        + "&offset=" + offset;
 ```
 
+* For custom attributes I use `data-`, as referenced in **[HTML data-* Attributes](https://www.w3schools.com/tags/att_global_data.asp)**
+* I created the custom attribute `data-active` and `data-imgoffset`
+    * The topic buttons have the attribute `data-active` with true or false. If it's true then 10 more gifs are added. If False the gifs are emptied to start a new 10 gifs.
+    * The topic buttons also have the attribute `data-imgoffset`. If the same topic button is selected the value is incremented by 10.
 
 ## Reference Links
-* Background patters from [Subtle Patterns](https://subtlepatterns.com/)
+* Background patterns from [Subtle Patterns](https://subtlepatterns.com/)

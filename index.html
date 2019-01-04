@@ -15,30 +15,36 @@
 <body>
   <div class="container-fluid p-1">
 
-    <div class="row pb-3">
-      <div class="col-md-12" id="gifbuttons">
+    <header class="bg-white border-bottom border-dark mb-1 sticky-top">
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-9" id="gifbuttons">
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <div class="input-group mb-2 py-1">
+              <input id="getimage" type="text" class="form-control" placeholder="Add a Sci-Fi Movie" aria-label="Add a Sci-Fi Movie" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary bg-info text-white" type="button" id="submit">Submit</button>
+              </div>
+            </div>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <div class="row p-3">
+    <div class="row px-3 py-1">
       <div class="col-md-9">
         <div class="row" id="gifs">
         </div>
       </div>
 
       <aside class="aside col-md-3">
-          <input type="text" id="getimage">
-          <button type="button" id="submit">Submit</button>
+        Second API Here
+
+
       </aside>
     </div>
 
   </div>
 
-
-
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-          crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 

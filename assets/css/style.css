@@ -6,12 +6,12 @@ body {
     background-color: #fff;
 }
 .card {
-    width: 210px;
+    /* width: 210px; */
 }
 .card-img-top {
     margin: 0px;
-    width: 200px;
-    height: 120px;
+    /* width: 200px;
+    height: 120px; */
     object-fit: cover;
 }
 .card-title {
