@@ -14,9 +14,8 @@ $(document).ready(function() {
     var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv';
 
     var giftastic = {
-        // API method
+        // API method - getting data object from Giphy
         giphy: function (value, offset) {
-            // $("#gifs").empty();
             var imgQuery = value;
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
                                                         + "&api_key=" + apikey 

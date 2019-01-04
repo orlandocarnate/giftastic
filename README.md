@@ -16,6 +16,9 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
     * When the topic button is pressed the `imgOffset` value is passed to the API function and added to the `"&offset=" + offset"` string.
     * Finally the `imgOffset` attribute is increased by 10.
 * For the second API I will use the **[Wikipedia MediaWiki API Main Page](https://www.mediawiki.org/wiki/API:Main_page)**
+    * API Endpoint: `https://en.wikipedia.org/w/api.php`
+    * JSON Example `https://en.wikipedia.org/w/api.php?action=query&titles=Albert%20Einstein&prop=info&format=jsonfm`
+
 
 
 ## Programming Notes
