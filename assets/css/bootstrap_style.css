@@ -1,0 +1,22 @@
+body {
+    background-image: url("../images/funky-lines.png");
+}
+
+.container {
+    background-color: #fff;
+}
+.card {
+    /* width: 210px; */
+}
+.card-img-top {
+    margin: 0px;
+    /* width: 200px;
+    height: 120px; */
+    object-fit: cover;
+}
+.card-title {
+    word-wrap: break-word;
+}
+.card-subtitle {
+    word-wrap: break-word;
+}

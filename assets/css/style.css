@@ -2,21 +2,82 @@ body {
     background-image: url("../images/funky-lines.png");
 }
 
-.container {
+.btn-topic {
+    background-color: gray;
+    border: none;
+    color: white;
+    margin: 2px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    opacity: .7;
+}
+
+.btn-topic:hover {
+    opacity: 1;
+}
+
+.btn-topic:active {
+    opacity: 1;
+    background-color: green;
+}
+
+.btn-topic:
+.grid {
     background-color: #fff;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-auto-rows: minmax(60px, auto);
 }
+
+
+header {
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    grid-column: 1/3;
+}
+
+section {
+    background-color: red;
+}
+
+aside {
+    background-color: green;
+}
+
+#gifs {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+}
+
+img {
+    height: 10em;
+}
+
 .card {
-    /* width: 210px; */
+    width: min-content;
+    margin: 5px;
+    padding: 5px;
+    background-color: blueviolet;
 }
-.card-img-top {
+
+/* .card-img-top {
     margin: 0px;
-    /* width: 200px;
-    height: 120px; */
+    width: 200px;
+    height: 120px;
     object-fit: cover;
 }
-.card-title {
-    word-wrap: break-word;
+*/
+
+.card-name {
+    text-align: center;
 }
-.card-subtitle {
-    word-wrap: break-word;
+.card-rating {
+    text-align: center;
 }

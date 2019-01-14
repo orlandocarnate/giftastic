@@ -38,7 +38,7 @@ $(document).ready(function() {
             // create bootstrap button
             var $gifButton = $("<button/>", 
                 {
-                    "class": 'btn-topic', 
+                    "class": 'btn btn-info mx-1 my-1', 
                     "data-imgoffset": 0, 
                     "data-active": "false",
                     "text": val
@@ -52,22 +52,21 @@ $(document).ready(function() {
             var newCard = arg;
             // generate 10 cards using for loop
             for (var i = 0; i < 10; i++) {
-                var $cardContainer = $("<div/>", {"class": 'card-container'}); // card container
-                var $card = $("<div/>", {"class":"card"}); // card class
-                var cardName;
+                var $cardContainer = $("<div/>", {"class": 'col-lg-4 col-md-6 col-sm-6'}); // card container
+                var $card = $("<div/>", {"class":"card p-1 m-1"}); // card class
+                var cardTitle;
                 if (newCard.data[i].title === "") {     // fill blank titles
-                    cardName = "No Title";
+                    cardTitle = "No Title";
                 } else {
-                    cardName = newCard.data[i].title;
+                    cardTitle = newCard.data[i].title;
                 }
-                var $cardName = $("<div/>", {"class": "card-name"}); // gif rating
-                var $cardRating = $("<div/>", {"class": "card-rating", "text": "Rating: " + newCard.data[i].rating.toUpperCase()}); // gif rating
-                var $cardStill = $("<img/>", {"class": "still", "src": newCard.data[i].images.fixed_height_still.url}); // still image from URL
-                var $cardGIF = $("<img/>", {"class": "gif", "src": newCard.data[i].images.fixed_height.url}); // gif image that is hidden by default
+                var $cardTitle = $("<p/>", {"class": "card-title", "text": cardTitle}); // gif rating
+                var $cardSubtitle = $("<p/>", {"class": "card-subtitle", "text": "Rating: " + newCard.data[i].rating.toUpperCase()}); // gif rating
+                var $cardStill = $("<img/>", {"class": "card-img-top still", "src": newCard.data[i].images.fixed_width_still.url}); // still image from URL
+                var $cardGIF = $("<img/>", {"class": "card-img-top gif", "src": newCard.data[i].images.fixed_width.url}); // gif image that is hidden by default
             
                 // append jquery elements to #gifs div element
-                $gifID.prepend($cardContainer.append($card.append($cardStill, $cardGIF.hide(), $cardName, $cardRating)));
-                $cardName.html(cardName);
+                $gifID.append($cardContainer.append($card.append($cardStill, $cardGIF.hide(), $cardTitle, $cardSubtitle)));
             }
         },
     }
@@ -92,7 +91,7 @@ $(document).ready(function() {
     });
 
     // this event method must work on newly generated buttons
-    $(document).on("click", ".btn-topic", function() {
+    $(document).on("click", ".btn", function() {
         imgValue = $(this).val();
         imgOffset = $(this).attr("data-imgoffset");
 

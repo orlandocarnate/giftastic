@@ -4,56 +4,41 @@
 <head>
   <meta charset="utf-8">
   <title>Giphy API</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
-        crossorigin="anonymous">
-  <!-- CUSTOM CSS -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <!-- CSS GRID -->
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
 <body>
-  <div class="container-fluid p-1">
+  <div class="grid">
 
-    <header class="bg-white border-bottom border-dark mb-1 sticky-top">
-      <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-9" id="gifbuttons">
-        </div>
-        <div class="col-sm-12 col-md-4 col-lg-3">
-            <div class="input-group mb-2 py-1">
-              <input id="getimage" type="text" class="form-control" placeholder="Add a Sci-Fi Movie" aria-label="Add a Sci-Fi Movie" aria-describedby="button-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary bg-info text-white" type="button" id="submit">Submit</button>
-              </div>
-            </div>
-        </div>
+    <header>
+      <nav id="gifbuttons">
+      </nav>
+
+      <div class="input-group">
+        <input id="getimage" type="text" class="form-control" placeholder="Add a Sci-Fi Movie" aria-label="Add a Sci-Fi Movie"
+          aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary bg-info text-white" type="button" id="submit">Add Topic</button>
       </div>
     </header>
 
-    <div class="row px-3 py-1">
-      <div class="col-md-9">
-        <div class="row" id="gifs">
-        </div>
-      </div>
+    <section id="gifs">
+    </section>
 
-      <aside class="aside col-md-3">
-        Second API Here
-
-
-      </aside>
-    </div>
+    <aside class="aside">
+      Second API Here
+    </aside>
 
   </div>
+  <!-- END CONTAINER -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
-        crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- APP SCRIPT -->
   <script src="assets/javascript/app.js"></script>
 </body>
 
