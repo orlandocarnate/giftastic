@@ -1,6 +1,9 @@
 # giftastic
 A web app that uses the GIPHY API to make a dynamic web page that populates with gifs of your choice.
 
+## CSS GRID & FLEXBOX
+I decided to use CSS Grid and Flexbox instead of Bootstrap to get more experience and reduce the amount of HTML code.
+
 ## App Checklist
 * The app creates buttons based on a `topics` array.
 * When the user clicks on a button, a page loads 10 gif **stills** (not animated) on the page.
@@ -22,9 +25,10 @@ A web app that uses the GIPHY API to make a dynamic web page that populates with
 
 
 ## Programming Notes
+* To have text wrap based on the image width I found that I needed to use `width: min-content` on my card class. **DOESN'T WORK** on Microsoft Edge though , just Chrome and Firefox.
 * Always add `$(document).ready(function() {})` to a jQuery script
 * Add validation, such as if there is no string in the input don't do anything.
-* Any element generated after the listening event is created must have a differmt kind of event listener
+* Any element generated after the listening event is created must have a different kind of event listener
 ```
     // click event for generated element
     $(document).on("click", ".card", function() {

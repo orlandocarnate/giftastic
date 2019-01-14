@@ -1,12 +1,14 @@
 body {
     background-image: url("../images/funky-lines.png");
+
 }
 
 .btn-topic {
-    background-color: gray;
-    border: none;
     color: white;
-    margin: 2px;
+    background-color: rgb(49, 49, 49);
+    border: solid white;
+    color: white;
+    margin: 0px 5px 5px 0px;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -17,15 +19,13 @@ body {
 }
 
 .btn-topic:hover {
-    opacity: 1;
+    background-color: gray;
 }
 
 .btn-topic:active {
-    opacity: 1;
     background-color: green;
 }
 
-.btn-topic:
 .grid {
     background-color: #fff;
     display: grid;
@@ -35,7 +35,8 @@ body {
 
 
 header {
-    background-color: aqua;
+    background-color: rgb(49, 49, 49);
+    padding: 5px;
     display: flex;
     justify-content: space-between;
     grid-column: 1/3;
@@ -53,18 +54,26 @@ aside {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-items: stretch;
 
 }
 
 img {
-    height: 10em;
+    /* height: 5em; */
 }
 
 .card {
-    width: min-content;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     margin: 5px;
     padding: 5px;
     background-color: blueviolet;
+    /* width: -moz-min-content;
+	width: -webkit-min-content;
+	width: min-content; */
+    /* display: -ms-inline-grid;
+    -ms-grid-columns: min-content; */
 }
 
 /* .card-img-top {
