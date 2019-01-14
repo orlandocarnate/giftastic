@@ -58,9 +58,9 @@ aside {
 
 }
 
-img {
-    /* height: 5em; */
-}
+/* img {
+    height: 5em;
+} */
 
 .card {
     display: flex;
@@ -68,7 +68,8 @@ img {
     overflow: hidden;
     margin: 5px;
     padding: 5px;
-    background-color: blueviolet;
+    background-color: lightgray;
+    border-radius: 5px;
     /* width: -moz-min-content;
 	width: -webkit-min-content;
 	width: min-content; */

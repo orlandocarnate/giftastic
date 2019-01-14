@@ -1,9 +1,14 @@
 $(document).ready(function() {
     var topics = [
-        "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
-        "The Last Starfighter", "Buck Rogers", "Star Trek", "Battlestar Galactica",
-        "Firefly", "Cowboy Bebop", "Doctor Who"
+        "Chicago", "London", "Paris", "Hong Kong", "Seoul"
     ];
+
+    // var topics = [
+    //     "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
+    //     "The Last Starfighter", "Buck Rogers", "Star Trek", "Battlestar Galactica",
+    //     "Firefly", "Cowboy Bebop", "Doctor Who"
+    // ];
+
     var $gifID = $("#gifs");
 
     var $gifButtons = $("#gifbuttons"); // #gifbuttons element
@@ -31,6 +36,65 @@ $(document).ready(function() {
                 console.log(imgQuery,imgResponse);
                 giftastic.cardGenerator(imgResponse);
             });
+        },
+
+        //API for HERE's place search
+        // searchPlace: function(arg) {
+        //     var appID = "tjj6VJZDXVLQe1myb3qf";
+        //     var appCode = "M-Z5rc6h_R8NnTOwcz-zzQ";
+
+        //     var placeQuery = "https://places.cit.api.here.com/places/v1/discover/explore";
+        //     placeQuery += "?app_id=" + appID;
+        //     placeQuery += "&app_code=" + appCode;
+        //     placeQuery += "&q=" + arg;
+        //     placeQuery += "&cat=sights-museums";
+        //     placeQuery += "&pretty";
+        //     console.log("placeQuery: ", placeQuery);
+        //     $.ajax({
+        //         url: placeQuery,
+        //         method: "GET"
+        //         }).then(function(response) {
+        //             var placeResponse = response;
+        //             console.log(placeResponse);
+        //             // giftastic.newFunction(placeResponse);
+        //         });
+
+            
+        // },
+
+        //API for Wikipedia's search
+        searchPlace: function(arg) {
+            var appID = "tjj6VJZDXVLQe1myb3qf";
+            var appCode = "M-Z5rc6h_R8NnTOwcz-zzQ";
+
+            var wikiRESTAPI = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+            wikiRESTAPI += arg;
+            // wikiRESTAPI += "&origin=*"; // Used to prevent CORS
+
+            // var placeQuery = "http://en.wikipedia.org/w/api.php";
+            // placeQuery += "?format=json";
+            // placeQuery += "&action=query";
+            // placeQuery += "&titles=" + arg;
+            // placeQuery += "&prop=description";
+            // placeQuery += "&origin=*";
+
+            //opensearch string
+            // placeQuery += "?format=json";
+            // placeQuery += "&action=opensearch";
+            // placeQuery += "&search=" + arg;
+            // placeQuery += "&namespace=0";
+            // placeQuery += "&limit=1";
+            // placeQuery += "&origin=*"
+            console.log("wikiRESTAPI: ", wikiRESTAPI);
+            $.ajax({
+                url: wikiRESTAPI,
+                method: "GET"
+                }).then(function(response) {
+                    console.log(response);
+                    // giftastic.newFunction(placeResponse);
+                });
+
+            
         },
 
         // button generator
@@ -70,6 +134,20 @@ $(document).ready(function() {
                 $cardName.html(cardName);
             }
         },
+
+        addButton: function() {
+            var value = $("#getimage").val();
+            if (value !== '') {
+                topics.push(value);
+                $gifButtons.empty();
+                // clear and rerender buttons
+                $("#getimage").val('');
+                topics.forEach(function (item) {
+                    giftastic.buttonGenerator(item);
+                });
+            }
+
+        },
     }
 
     // call button generator 
@@ -79,16 +157,7 @@ $(document).ready(function() {
     });
 
     $("#submit").click(function() {
-        var value = $("#getimage").val();
-        if (value !== '') {
-            topics.push(value);
-            $gifButtons.empty();
-            // clear and rerender buttons
-            $("#getimage").val('');
-            topics.forEach(function (item) {
-                giftastic.buttonGenerator(item);
-            });
-        }
+        giftastic.addButton();
     });
 
     // this event method must work on newly generated buttons
@@ -114,6 +183,9 @@ $(document).ready(function() {
         console.log("button offset:",imgOffset);
         $(this).attr("data-imgoffset", imgOffset);
         console.log(imgValue);
+
+        // call the second API method
+        giftastic.searchPlace(imgValue);
     });
 
     // click event for generated element

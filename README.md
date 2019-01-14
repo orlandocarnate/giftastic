@@ -21,6 +21,9 @@ I decided to use CSS Grid and Flexbox instead of Bootstrap to get more experienc
 * For the second API I will use the **[Wikipedia MediaWiki API Main Page](https://www.mediawiki.org/wiki/API:Main_page)**
     * API Endpoint: `https://en.wikipedia.org/w/api.php`
     * JSON Example `https://en.wikipedia.org/w/api.php?action=query&titles=Albert%20Einstein&prop=info&format=jsonfm`
+* For searching a place I used Here's [Free-text Search](https://developer.here.com/documentation/places/topics/free-text-search.html) API to find info about the topic.
+* Will also try **[Wikipedia REST API](https://www.mediawiki.org/wiki/Page_Previews)**
+    * https://www.mediawiki.org/wiki/Page_Previews/API_Specification
 
 
 
