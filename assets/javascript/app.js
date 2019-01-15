@@ -5,7 +5,9 @@ $(document).ready(function() {
 
     var topic;
 
-    var favTopics = [];
+    var favTopics = JSON.parse(localStorage["mytopics"]);
+    console.log("Currently Stored: ",favTopics);
+
 
     // var topics = [
     //     "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
@@ -14,8 +16,6 @@ $(document).ready(function() {
     // ];
 
     var $gifID = $("#gifs");
-
-    var $gifButtons = $("#gifbuttons"); // #gifbuttons element
     var rating = 'pg'; // this rating plus anything below it.
     var searchLimit = 10; // limit searches to 10
 
@@ -69,8 +69,9 @@ $(document).ready(function() {
         },
 
         // button generator
-        buttonGenerator: function (val) {
+        buttonGenerator: function (val, element) {
             // create bootstrap button
+            var $gifButtons = $(element); // #gifbuttons or #favButtons element
             var $gifButton = $("<button/>", 
                 {
                     "class": 'btn-topic', 
@@ -117,19 +118,34 @@ $(document).ready(function() {
                 // clear and rerender buttons
                 
                 topics.forEach(function (item) {
-                    giftastic.buttonGenerator(item);
+                    giftastic.buttonGenerator(item, "#gifbuttons");
                 });
             }
             $("#getimage").val('');
 
         },
+
+        storeTopics:function() {
+            localStorage["mytopics"] = JSON.stringify(favTopics);
+            giftastic.buttonGenerator(topic, "#favButtons");
+            console.log("localStorage: ", JSON.parse(localStorage["mytopics"]));
+
+        }
     }
 
-    // call button generator 
+    // call button generator for array
     topics.forEach(function (item) {
         console.log(item);
-        giftastic.buttonGenerator(item);
+        giftastic.buttonGenerator(item, "#gifbuttons");
     });
+
+    // call button generator for localStorage
+    topics.forEach(function (item) {
+        console.log(item);
+        giftastic.buttonGenerator(item, "#gifbuttons");
+    });
+
+    
 
     $("#submit").click(function() {
         // event.preventDefault();
@@ -179,6 +195,7 @@ $(document).ready(function() {
     $(document).on("click", "#save-topic", function() {
         if (topic && favTopics.indexOf(topic) === -1) {
             favTopics.push(topic);
+            giftastic.storeTopics();
             console.log("Fav Topics: " + favTopics);
         } else {
             console.log("topic is null or exists");

@@ -25,9 +25,14 @@ I decided to use CSS Grid and Flexbox instead of Bootstrap to get more experienc
 * Will also try **[Wikipedia REST API](https://www.mediawiki.org/wiki/Page_Previews)**
     * https://www.mediawiki.org/wiki/Page_Previews/API_Specification
 
-## Persistence Setup
+## localStorage() Setup
 * I created an empty favTopics variable.
 * Used `.indexOf()` to make sure no duplicates can be pushed into the array.
+* localStorage() does not store arrays so you will need to use JSON.stringify to make it work.
+    ```
+    var favTopics = JSON.parse(localStorage["mytopics"]); \\ Global Variable
+    localStorage["mytopics"] = JSON.stringify(favTopics);
+    ```
 
 ## Other Programming Notes
 * To have text wrap based on the image width I found that I needed to use `width: min-content` on my card class. **DOESN'T WORK** on Microsoft Edge though , just Chrome and Firefox.
