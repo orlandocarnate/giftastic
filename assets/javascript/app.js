@@ -39,7 +39,7 @@ $(document).ready(function() {
         },
 
         //API for HERE's place search
-        // searchPlace: function(arg) {
+        // searchWiki: function(arg) {
         //     var appID = "tjj6VJZDXVLQe1myb3qf";
         //     var appCode = "M-Z5rc6h_R8NnTOwcz-zzQ";
 
@@ -63,35 +63,30 @@ $(document).ready(function() {
         // },
 
         //API for Wikipedia's search
-        searchPlace: function(arg) {
-            var appID = "tjj6VJZDXVLQe1myb3qf";
-            var appCode = "M-Z5rc6h_R8NnTOwcz-zzQ";
-
+        searchWiki: function(arg) {
             var wikiRESTAPI = "https://en.wikipedia.org/api/rest_v1/page/summary/";
             wikiRESTAPI += arg;
-            // wikiRESTAPI += "&origin=*"; // Used to prevent CORS
-
-            // var placeQuery = "http://en.wikipedia.org/w/api.php";
-            // placeQuery += "?format=json";
-            // placeQuery += "&action=query";
-            // placeQuery += "&titles=" + arg;
-            // placeQuery += "&prop=description";
-            // placeQuery += "&origin=*";
-
-            //opensearch string
-            // placeQuery += "?format=json";
-            // placeQuery += "&action=opensearch";
-            // placeQuery += "&search=" + arg;
-            // placeQuery += "&namespace=0";
-            // placeQuery += "&limit=1";
-            // placeQuery += "&origin=*"
             console.log("wikiRESTAPI: ", wikiRESTAPI);
             $.ajax({
                 url: wikiRESTAPI,
                 method: "GET"
                 }).then(function(response) {
+                    $("#wiki").empty();
                     console.log(response);
-                    // giftastic.newFunction(placeResponse);
+                    console.log("Extract: ", response.extract_html);
+                    if (response.hasOwnProperty("thumbnail")) {
+                        var $img = $("<img>").attr({"class" : "wiki-img", "src": response.thumbnail.source});
+                    } else {
+                        var $img = $("<img>").attr({"class" : "wiki-img", "src": 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/418px-Wikipedia-logo-v2-en.svg.png'});
+                        
+                    }
+                    
+                    var $heading = $("<h3>");
+                    var $a = $('<a />').attr({href: response.content_urls.desktop.page});
+                    $a.text(response.title);
+                    $heading.append($a);
+                    var $summary = $("<span>").html(response.extract_html);
+                    $("#wiki").append($img, $heading, $summary);
                 });
 
             
@@ -157,6 +152,7 @@ $(document).ready(function() {
     });
 
     $("#submit").click(function() {
+        event.preventDefault()
         giftastic.addButton();
     });
 
@@ -185,7 +181,7 @@ $(document).ready(function() {
         console.log(imgValue);
 
         // call the second API method
-        giftastic.searchPlace(imgValue);
+        giftastic.searchWiki(imgValue);
     });
 
     // click event for generated element
