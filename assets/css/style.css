@@ -65,18 +65,22 @@ a:hover {
     grid-auto-rows: minmax(60px, auto);
 }
 
-
-header {
+header, nav, .input-group {
     background-color: rgb(49, 49, 49);
     padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    grid-column: 1/3;
     color: white;
 }
+header {
+    grid-column: 1/3;
+}
+
+nav {
+    grid-column: 1/2;
+}
+
 
 .input-group {
-    width: 280px;
+    grid-column: 2/3;
 }
 section {
     /* background: none; */

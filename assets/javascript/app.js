@@ -132,14 +132,14 @@ $(document).ready(function() {
     });
 
     $("#submit").click(function() {
-        event.preventDefault()
+        // event.preventDefault();
         giftastic.addButton();
         
     });
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn-topic", function() {
-        event.preventDefault();
+        // event.preventDefault();
         topic = $(this).val();
         imgOffset = $(this).attr("data-imgoffset");
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
     $(document).on("click", "#save-topic", function() {
         if (topic && favTopics.indexOf(topic) === -1) {
             favTopics.push(topic);
-            console.log(favTopics);
+            console.log("Fav Topics: " + favTopics);
         } else {
             console.log("topic is null or exists");
         }
