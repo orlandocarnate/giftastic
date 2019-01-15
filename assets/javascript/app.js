@@ -12,6 +12,7 @@ $(document).ready(function () {
         favTopics = JSON.parse(localStorage["mytopics"]);
         console.log("Currently Stored: ", favTopics);
     } else {
+        favTopics = [];
         console.log("localStorage is empty");
     };
 
@@ -206,7 +207,7 @@ $(document).ready(function () {
     // add topic to savedTopic array
     $(document).on("click", "#save-topic", function () {
         console.log("Save topic: ", topic);
-        if ((typeof localStorage["mytopics"] !== 'undefined') && (favTopics.indexOf(topic) === -1)) {
+        if (topic && favTopics.indexOf(topic) === -1) {
             favTopics.push(topic);
             giftastic.storeTopics();
             console.log("Fav Topics: " + favTopics);
