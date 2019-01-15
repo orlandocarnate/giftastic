@@ -4,6 +4,21 @@ body {
 
 }
 
+a, a:visited {
+    text-decoration: inherit;
+    color: inherit;
+    /* cursor: auto; */
+}
+
+#logo {
+    font-family: 'Permanent Marker', cursive;
+    color: #fff;
+    font-size: 3em;
+    background-color: rgb(49, 49, 49);
+    padding: 5px;
+    grid-column: 1/3;
+}
+
 .btn-topic {
     color: white;
     background-color: rgb(49, 49, 49);
