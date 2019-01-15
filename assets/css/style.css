@@ -62,10 +62,10 @@ a:hover {
     /* background-color: #fff; */
     display: grid;
     grid-template-columns: 3fr 1fr;
-    grid-auto-rows: minmax(60px, auto);
+    /* grid-auto-rows: minmax(60px, auto); */
 }
 
-header, nav, .input-group {
+header, nav, .input-group, .save-button {
     background-color: rgb(49, 49, 49);
     padding: 5px;
     color: white;
@@ -79,7 +79,7 @@ nav {
 }
 
 
-.input-group {
+.input-group, .save-button {
     grid-column: 2/3;
 }
 section {

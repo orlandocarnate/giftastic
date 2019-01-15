@@ -71,7 +71,7 @@ $(document).ready(function() {
         // button generator
         buttonGenerator: function (val, element) {
             // create bootstrap button
-            var $gifButtons = $(element); // #gifbuttons or #favButtons element
+            var $gifButtons = $(element); // #gifbuttons or #fav-buttons element
             var $gifButton = $("<button/>", 
                 {
                     "class": 'btn-topic', 
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
         storeTopics:function() {
             localStorage["mytopics"] = JSON.stringify(favTopics);
-            giftastic.buttonGenerator(topic, "#favButtons");
+            giftastic.buttonGenerator(topic, "#fav-buttons");
             console.log("localStorage: ", JSON.parse(localStorage["mytopics"]));
 
         }
@@ -140,9 +140,9 @@ $(document).ready(function() {
     });
 
     // call button generator for localStorage
-    topics.forEach(function (item) {
+    favTopics.forEach(function (item) {
         console.log(item);
-        giftastic.buttonGenerator(item, "#gifbuttons");
+        giftastic.buttonGenerator(item, "#fav-buttons");
     });
 
     
@@ -163,10 +163,10 @@ $(document).ready(function() {
         if ($(this).attr("data-active") === "false") {
             $("#gifs").empty();
             // reset all the button offsets to 0
-            $("#gifbuttons").children(".btn-topic").attr("data-imgoffset", "0");
+            $(".btn-topic").attr("data-imgoffset", "0");
             // set all button data-active to false
-            $("#gifbuttons").children(".btn-topic").attr("data-active", "false");
-            $("#gifbuttons").children(".btn-topic").css({"background-color": "transparent"});
+            $(".btn-topic").attr("data-active", "false");
+            $(".btn-topic").css({"background-color": "transparent"});
             $(this).attr("data-active", "true");
             $(this).css({"background-color": "gray"});
         };
