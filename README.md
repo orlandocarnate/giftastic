@@ -25,9 +25,11 @@ I decided to use CSS Grid and Flexbox instead of Bootstrap to get more experienc
 * Will also try **[Wikipedia REST API](https://www.mediawiki.org/wiki/Page_Previews)**
     * https://www.mediawiki.org/wiki/Page_Previews/API_Specification
 
+## Persistence Setup
+* I created an empty favTopics variable.
+* Used `.indexOf()` to make sure no duplicates can be pushed into the array.
 
-
-## Programming Notes
+## Other Programming Notes
 * To have text wrap based on the image width I found that I needed to use `width: min-content` on my card class. **DOESN'T WORK** on Microsoft Edge though , just Chrome and Firefox.
 * Always add `$(document).ready(function() {})` to a jQuery script
 * Add validation, such as if there is no string in the input don't do anything.
@@ -52,6 +54,10 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery
 * I created the custom attribute `data-active` and `data-imgoffset`
     * The topic buttons have the attribute `data-active` with true or false. If it's true then 10 more gifs are added. If False the gifs are emptied to start a new 10 gifs.
     * The topic buttons also have the attribute `data-imgoffset`. If the same topic button is selected the value is incremented by 10.
+
+* To change CSS styles dynamically I used the .css() method.
+    * Ex: `$(this).css({"background-color": "gray"});`
+
 
 ## Reference Links
 * Background patterns from [Subtle Patterns](https://subtlepatterns.com/)

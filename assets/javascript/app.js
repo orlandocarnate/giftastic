@@ -3,6 +3,8 @@ $(document).ready(function() {
         "Chicago", "London", "Paris", "Hong Kong", "Seoul", "Prague", "Zurich", "Venice", "Vienna", "Firenze", "Bangkok", "Moscow"
     ];
 
+    var topic;
+
     var favTopics = [];
 
     // var topics = [
@@ -106,15 +108,19 @@ $(document).ready(function() {
 
         addButton: function() {
             var value = $("#getimage").val();
-            if (value !== '') {
-                topics.push(value);
+            console.log("Value: ", value);
+            if (value && topics.indexOf(value.trim()) === -1) {
+                topics.push(value.trim());
+                
+                console.log("Topics: " , topics);
                 $gifButtons.empty();
                 // clear and rerender buttons
-                $("#getimage").val('');
+                
                 topics.forEach(function (item) {
                     giftastic.buttonGenerator(item);
                 });
             }
+            $("#getimage").val('');
 
         },
     }
@@ -128,12 +134,13 @@ $(document).ready(function() {
     $("#submit").click(function() {
         event.preventDefault()
         giftastic.addButton();
+        
     });
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn-topic", function() {
         event.preventDefault();
-        imgValue = $(this).val();
+        topic = $(this).val();
         imgOffset = $(this).attr("data-imgoffset");
 
         // if current topic is not clicked, clear #gifs div
@@ -149,16 +156,16 @@ $(document).ready(function() {
         };
 
         // send two values to giftastic object
-        giftastic.giphy(imgValue, imgOffset);
+        giftastic.giphy(topic, imgOffset);
 
         // increase button's offset value by 10
         imgOffset = parseInt(imgOffset) + 10;
         console.log("button offset:",imgOffset);
         $(this).attr("data-imgoffset", imgOffset);
-        console.log(imgValue);
+        console.log(topic);
 
         // call the second API method
-        giftastic.searchWiki(imgValue);
+        giftastic.searchWiki(topic);
     });
 
     // click event for generated element
@@ -166,6 +173,17 @@ $(document).ready(function() {
         $(this).children(".still").toggle(); 
         $(this).children(".gif").toggle(); 
         console.log("Image Clicked");
+    });
+
+    // add topic to savedTopic array
+    $(document).on("click", "#save-topic", function() {
+        if (topic && favTopics.indexOf(topic) === -1) {
+            favTopics.push(topic);
+            console.log(favTopics);
+        } else {
+            console.log("topic is null or exists");
+        }
+        
     });
 
 //------ end ------
