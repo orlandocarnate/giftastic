@@ -10,6 +10,22 @@ a, a:visited {
     /* cursor: auto; */
 }
 
+a:hover {
+    cursor: pointer;
+    /* text-decoration: underline; */
+    color: white;
+}
+.wiki-img {
+    border: solid 2px black;
+}
+.wiki-img:hover {
+    border: solid 2px white;
+}
+
+.active {
+    background-color: gray;
+}
+
 #logo {
     font-family: 'Permanent Marker', cursive;
     color: #fff;
@@ -19,7 +35,7 @@ a, a:visited {
     grid-column: 1/3;
 }
 
-.btn-topic {
+.btn, .btn-topic {
     color: white;
     background-color: rgb(49, 49, 49);
     border: solid white;
@@ -33,8 +49,9 @@ a, a:visited {
     border-radius: 5px;
 }
 
-.btn-topic:hover {
+.btn:hover, .btn-topic:hover {
     background-color: gray;
+    cursor: pointer;
 }
 
 .btn-topic:active {
@@ -44,7 +61,7 @@ a, a:visited {
 .grid {
     /* background-color: #fff; */
     display: grid;
-    grid-template-columns: 3fr auto;
+    grid-template-columns: 3fr 1fr;
     grid-auto-rows: minmax(60px, auto);
 }
 
@@ -55,8 +72,12 @@ header {
     display: flex;
     justify-content: space-between;
     grid-column: 1/3;
+    color: white;
 }
 
+.input-group {
+    width: 280px;
+}
 section {
     /* background: none; */
 }

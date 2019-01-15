@@ -1,7 +1,9 @@
 $(document).ready(function() {
     var topics = [
-        "Chicago", "London", "Paris", "Hong Kong", "Seoul"
+        "Chicago", "London", "Paris", "Hong Kong", "Seoul", "Prague", "Zurich", "Venice", "Vienna", "Firenze", "Bangkok", "Moscow"
     ];
+
+    var favTopics = [];
 
     // var topics = [
     //     "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
@@ -15,19 +17,13 @@ $(document).ready(function() {
     var rating = 'pg'; // this rating plus anything below it.
     var searchLimit = 10; // limit searches to 10
 
-    // Example queryURL for Giphy API
-    var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv';
-
     var giftastic = {
         // API method - getting data object from Giphy
         giphy: function (value, offset) {
+            var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv'; // giphy API key
             var imgQuery = value;
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + imgQuery 
-                                                        + "&api_key=" + apikey 
-                                                        + "&rating=" + rating 
-                                                        + "&limit=" + searchLimit
-                                                        + "&offset=" + offset;
-            console.log(queryURL);
+                + "&api_key=" + apikey + "&rating=" + rating + "&limit=" + searchLimit + "&offset=" + offset;
             $.ajax({
             url: queryURL,
             method: "GET"
@@ -38,29 +34,6 @@ $(document).ready(function() {
             });
         },
 
-        //API for HERE's place search
-        // searchWiki: function(arg) {
-        //     var appID = "tjj6VJZDXVLQe1myb3qf";
-        //     var appCode = "M-Z5rc6h_R8NnTOwcz-zzQ";
-
-        //     var placeQuery = "https://places.cit.api.here.com/places/v1/discover/explore";
-        //     placeQuery += "?app_id=" + appID;
-        //     placeQuery += "&app_code=" + appCode;
-        //     placeQuery += "&q=" + arg;
-        //     placeQuery += "&cat=sights-museums";
-        //     placeQuery += "&pretty";
-        //     console.log("placeQuery: ", placeQuery);
-        //     $.ajax({
-        //         url: placeQuery,
-        //         method: "GET"
-        //         }).then(function(response) {
-        //             var placeResponse = response;
-        //             console.log(placeResponse);
-        //             // giftastic.newFunction(placeResponse);
-        //         });
-
-            
-        // },
 
         //API for Wikipedia's search
         searchWiki: function(arg) {
@@ -71,22 +44,23 @@ $(document).ready(function() {
                 url: wikiRESTAPI,
                 method: "GET"
                 }).then(function(response) {
-                    $("#wiki").empty();
-                    console.log(response);
-                    console.log("Extract: ", response.extract_html);
+                    $(".aside").empty();
+                    $wiki = $("<div/>").attr({"id":"wiki"});
                     if (response.hasOwnProperty("thumbnail")) {
                         var $img = $("<img>").attr({"class" : "wiki-img", "src": response.thumbnail.source});
                     } else {
-                        var $img = $("<img>").attr({"class" : "wiki-img", "src": 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/418px-Wikipedia-logo-v2-en.svg.png'});
+                        var $img = $("<img>").attr({"class" : "wiki-img", 
+                        "src": 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/418px-Wikipedia-logo-v2-en.svg.png'});
                         
                     }
                     
                     var $heading = $("<h3>");
-                    var $a = $('<a />').attr({href: response.content_urls.desktop.page});
-                    $a.text(response.title);
+                    var $a = $('<a />').attr({href: response.content_urls.desktop.page, target: "_blank"});
+                    $a.append(response.title);
+                    $a.append($img);
                     $heading.append($a);
                     var $summary = $("<span>").html(response.extract_html);
-                    $("#wiki").append($img, $heading, $summary);
+                    $(".aside").append($wiki.append($heading, $summary));
                 });
 
             
@@ -158,6 +132,7 @@ $(document).ready(function() {
 
     // this event method must work on newly generated buttons
     $(document).on("click", ".btn-topic", function() {
+        event.preventDefault();
         imgValue = $(this).val();
         imgOffset = $(this).attr("data-imgoffset");
 
@@ -165,10 +140,12 @@ $(document).ready(function() {
         if ($(this).attr("data-active") === "false") {
             $("#gifs").empty();
             // reset all the button offsets to 0
-            $("#gifbuttons").children(".btn").attr("data-imgoffset", "0");
+            $("#gifbuttons").children(".btn-topic").attr("data-imgoffset", "0");
             // set all button data-active to false
-            $("#gifbuttons").children(".btn").attr("data-active", "false");
+            $("#gifbuttons").children(".btn-topic").attr("data-active", "false");
+            $("#gifbuttons").children(".btn-topic").css({"background-color": "transparent"});
             $(this).attr("data-active", "true");
+            $(this).css({"background-color": "gray"});
         };
 
         // send two values to giftastic object
