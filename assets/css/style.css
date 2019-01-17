@@ -8,6 +8,14 @@ a, a:visited {
     color: inherit;
 }
 
+b {
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+}
+
 a:hover {
     cursor: pointer;
     color: white;
@@ -78,11 +86,12 @@ nav {
 }
 
 #wiki {
-    margin: 5px;
+    box-sizing: border-box;
+    margin-left: 0px;
     padding: 10px;
     background-color: lightgray;
     border-radius: 5px;
-    width: min-content;
+    width: 100%;
 }
 
 #gifs {
@@ -90,6 +99,10 @@ nav {
     flex-wrap: wrap;
     flex-direction: row;
     align-items: stretch;
+}
+
+aside {
+    display: block;
 }
 
 /* img {
@@ -156,7 +169,7 @@ nav {
 }
 
 /* Mobile Settings */
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 480px) {
     .grid {
         grid-template-columns: 2fr 1fr;
     }
@@ -177,11 +190,15 @@ nav {
         background-color: lightgray;
         border-radius: 5px;
     }
-    .card > img {
+    img {
         display: block;
         width: 100%;
         height: auto;
         /* object-fit: cover; */
+    }
+
+    #wiki > span {
+        font-size: .75em;
     }
 
 }
