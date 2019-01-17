@@ -154,3 +154,32 @@ nav {
     height:45px;
     margin-right: 0px;
 }
+
+/* Mobile Settings */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: 2fr 1fr;
+    }
+    /* header {
+        grid-column: 1/3;
+    } */
+    nav, .input-group, .save-button {
+        grid-column: 1/3;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        background-color: lightgray;
+        border-radius: 5px;
+    }
+    .card > img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+}

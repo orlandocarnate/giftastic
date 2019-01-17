@@ -2,11 +2,8 @@ $(document).ready(function () {
     var topics = [
         "Chicago", "London", "Paris", "Hong Kong", "Seoul", "Prague", "Zurich", "Venice", "Vienna", "Firenze", "Bangkok", "Moscow"
     ];
-
     var topic;
-
     var favTopics;
-
 
     if (typeof localStorage["mytopics"] !== 'undefined') {
         favTopics = JSON.parse(localStorage["mytopics"]);
@@ -16,18 +13,11 @@ $(document).ready(function () {
         console.log("localStorage is empty");
     };
 
-
-
-    // var topics = [
-    //     "Star Wars", "Blade Runner", "Tron", "Tron Legacy", "Interstellar",
-    //     "The Last Starfighter", "Buck Rogers", "Star Trek", "Battlestar Galactica",
-    //     "Firefly", "Cowboy Bebop", "Doctor Who"
-    // ];
-
     var $gifID = $("#gifs");
     var rating = 'pg'; // this rating plus anything below it.
     var searchLimit = 10; // limit searches to 10
 
+    // giftastic Object
     var giftastic = {
         // API method - getting data object from Giphy
         giphy: function (value, offset) {
@@ -44,7 +34,6 @@ $(document).ready(function () {
                 giftastic.cardGenerator(imgResponse);
             });
         },
-
 
         //API for Wikipedia's search
         searchWiki: function (arg) {
@@ -64,7 +53,6 @@ $(document).ready(function () {
                         "class": "wiki-img",
                         "src": 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/418px-Wikipedia-logo-v2-en.svg.png'
                     });
-
                 }
 
                 var $heading = $("<h3>");
@@ -75,7 +63,6 @@ $(document).ready(function () {
                 var $summary = $("<span>").html(response.extract_html);
                 $(".aside").append($wiki.append($heading, $summary));
             });
-
 
         },
 
@@ -133,14 +120,12 @@ $(document).ready(function () {
                 });
             }
             $("#getimage").val('');
-
         },
 
         storeTopics: function () {
             localStorage["mytopics"] = JSON.stringify(favTopics);
             giftastic.buttonGenerator(topic, "#fav-buttons");
             console.log("localStorage: ", JSON.parse(localStorage["mytopics"]));
-
         }
     }
 
@@ -158,12 +143,9 @@ $(document).ready(function () {
         })
     };
 
-
-
     $("#submit").click(function () {
         // event.preventDefault();
         giftastic.addButton();
-
     });
 
     // this event method must work on newly generated buttons
@@ -175,10 +157,8 @@ $(document).ready(function () {
         // if current topic is not clicked, clear #gifs div
         if ($(this).attr("data-active") === "false") {
             $("#gifs").empty();
-            // reset all the button offsets to 0
-            $(".btn-topic").attr("data-imgoffset", "0");
-            // set all button data-active to false
-            $(".btn-topic").attr("data-active", "false");
+            $(".btn-topic").attr("data-imgoffset", "0"); // reset all the button offsets to 0
+            $(".btn-topic").attr("data-active", "false"); // set all button data-active to false
             $(".btn-topic").css({ "background-color": "transparent" });
             $(this).attr("data-active", "true");
             $(this).css({ "background-color": "gray" });
@@ -214,18 +194,15 @@ $(document).ready(function () {
         } else {
             console.log("topic is null or exists");
         }
-
     });
 
     // Clear localStorage
     $(document).on("click", "#clear-topics", function () {
         var clear = confirm("Are you sure you want to erase all your saved topics?");
-
         if (clear === true) {
             localStorage.clear();
             $("#fav-buttons").empty();
         }
-
     });
 
     //------ end ------
