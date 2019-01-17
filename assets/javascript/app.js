@@ -82,7 +82,7 @@ $(document).ready(function () {
             var newCard = arg;
             // generate 10 cards using for loop
             for (var i = 0; i < 10; i++) {
-                var $cardContainer = $("<div/>", { "class": 'card-container' }); // card container
+                // var $cardContainer = $("<div/>", { "class": 'card-container' }); // card container
                 var $card = $("<div/>", { "class": "card" }); // card class
                 var cardName;
                 if (newCard.data[i].title === "") {     // fill blank titles
@@ -96,7 +96,8 @@ $(document).ready(function () {
                 var $cardGIF = $("<img/>", { "class": "gif", "src": newCard.data[i].images.fixed_height.url }); // gif image that is hidden by default
 
                 // append jquery elements to #gifs div element
-                $gifID.prepend($cardContainer.append($card.append($cardStill, $cardGIF.hide(), $cardName, $cardRating)));
+                // $gifID.prepend($cardContainer.append($card.append($cardStill, $cardGIF.hide(), $cardName, $cardRating)));
+                $gifID.prepend($card.append($cardStill, $cardGIF.hide(), $cardName, $cardRating));
                 $cardName.html(cardName);
             }
         },
