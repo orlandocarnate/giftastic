@@ -1,9 +1,7 @@
 $(document).ready(function () {
-    var topics = [
-        "Chicago", "London", "Paris", "Hong Kong", "Seoul", "Prague", "Zurich", "Venice", "Vienna", "Firenze", "Bangkok", "Moscow"
-    ];
-    var topic;
-    var favTopics;
+    var topics = ["Chicago", "London", "Paris", "Hong Kong", "Seoul", "Prague", 
+    "Zurich", "Venice", "Vienna", "Firenze", "Bangkok", "Moscow"];
+    var topic, favTopics;
 
     if (typeof localStorage["mytopics"] !== 'undefined') {
         favTopics = JSON.parse(localStorage["mytopics"]);
@@ -19,7 +17,7 @@ $(document).ready(function () {
 
     // giftastic Object
     var giftastic = {
-        // API method - getting data object from Giphy
+        // Giphy API method
         giphy: function (value, offset) {
             var apikey = '33r6HmHtPq3Os3xN54dVLKR8MM1Qs3lv'; // giphy API key
             var imgQuery = value;
@@ -35,7 +33,7 @@ $(document).ready(function () {
             });
         },
 
-        //API for Wikipedia's search
+        // Wikipedia API
         searchWiki: function (arg) {
             var wikiRESTAPI = "https://en.wikipedia.org/api/rest_v1/page/summary/";
             wikiRESTAPI += arg;
@@ -54,7 +52,6 @@ $(document).ready(function () {
                         "src": 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/418px-Wikipedia-logo-v2-en.svg.png'
                     });
                 }
-
                 var $heading = $("<h3>");
                 var $a = $('<a />').attr({ href: response.content_urls.desktop.page, target: "_blank" });
                 $a.append(response.title);
@@ -68,7 +65,6 @@ $(document).ready(function () {
 
         // button generator
         buttonGenerator: function (val, element) {
-            // create bootstrap button
             var $gifButtons = $(element); // #gif-buttons or #fav-buttons element
             var $gifButton = $("<button/>",
                 {
@@ -110,11 +106,7 @@ $(document).ready(function () {
             console.log("Value: ", value);
             if (value && topics.indexOf(value.trim()) === -1) {
                 topics.push(value.trim());
-
-                console.log("Topics: ", topics);
-                $("#gif-buttons").empty();
-                // clear and rerender buttons
-
+                $("#gif-buttons").empty(); // clear and rerender buttons
                 topics.forEach(function (item) {
                     giftastic.buttonGenerator(item, "#gif-buttons");
                 });
@@ -123,7 +115,7 @@ $(document).ready(function () {
         },
 
         storeTopics: function () {
-            localStorage["mytopics"] = JSON.stringify(favTopics);
+            localStorage["mytopics"] = JSON.stringify(favTopics); // need to convert JSON to a string array to store in localStorage
             giftastic.buttonGenerator(topic, "#fav-buttons");
             console.log("localStorage: ", JSON.parse(localStorage["mytopics"]));
         }
@@ -131,14 +123,12 @@ $(document).ready(function () {
 
     // call button generator for array
     topics.forEach(function (item) {
-        console.log(item);
         giftastic.buttonGenerator(item, "#gif-buttons");
     });
 
     // call button generator for localStorage
     if (favTopics) {
         favTopics.forEach(function (item) {
-            console.log(item);
             giftastic.buttonGenerator(item, "#fav-buttons");
         })
     };
@@ -148,7 +138,7 @@ $(document).ready(function () {
         giftastic.addButton();
     });
 
-    // this event method must work on newly generated buttons
+    // this event method work's on newly generated buttons
     $(document).on("click", ".btn-topic", function () {
         // event.preventDefault();
         topic = $(this).val();
@@ -163,25 +153,17 @@ $(document).ready(function () {
             $(this).attr("data-active", "true");
             $(this).css({ "background-color": "gray" });
         };
-
-        // send two values to giftastic object
-        giftastic.giphy(topic, imgOffset);
-
-        // increase button's offset value by 10
-        imgOffset = parseInt(imgOffset) + 10;
-        console.log("button offset:", imgOffset);
-        $(this).attr("data-imgoffset", imgOffset);
-        console.log(topic);
-
-        // call the second API method
-        giftastic.searchWiki(topic);
+        
+        giftastic.giphy(topic, imgOffset); // send two values to giftastic object
+        imgOffset = parseInt(imgOffset) + 10; // increase button's offset value by 10
+        $(this).attr("data-imgoffset", imgOffset);  // update data-imgoffset attribute
+        giftastic.searchWiki(topic); // call the second API method
     });
 
-    // click event for generated element
+    // click event for generated element that shows a still or animated gif
     $(document).on("click", ".card", function () {
         $(this).children(".still").toggle();
         $(this).children(".gif").toggle();
-        console.log("Image Clicked");
     });
 
     // add topic to savedTopic array
@@ -190,9 +172,8 @@ $(document).ready(function () {
         if (topic && favTopics.indexOf(topic) === -1) {
             favTopics.push(topic);
             giftastic.storeTopics();
-            console.log("Fav Topics: " + favTopics);
         } else {
-            console.log("topic is null or exists");
+            console.log("save topic is null or exists");
         }
     });
 
@@ -204,6 +185,5 @@ $(document).ready(function () {
             $("#fav-buttons").empty();
         }
     });
-
-    //------ end ------
-});
+    
+}); //------ end ------
